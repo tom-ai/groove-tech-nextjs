@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { PreloadResources } from './preload-resources';
+import Link from 'next/link';
+
 // import './globals.css';
 import './css/pico.fuchsia.min.css';
 
@@ -32,10 +33,16 @@ export default function RootLayout({
         <header>
           <nav>
             <ul>
-              <li>TnT</li>
+              <li>
+                <Link href={'/'}>
+                  <strong>Tito Entertainment</strong>
+                </Link>
+              </li>
             </ul>
             <ul>
-              <li>Packages</li>
+              <li>
+                <Link href={'packages'}>Packages</Link>
+              </li>
             </ul>
           </nav>
         </header>

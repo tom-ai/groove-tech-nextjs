@@ -1,0 +1,79 @@
+[
+    {
+        "id": "soulful-afternoon",
+        "name": "Soulful Afternoon Experience",
+        "description": "Intimate jazz and pop performances perfect for cocktail hours or daytime celebrations, featuring soulful saxophone with acoustic backing tracks.",
+        "standout_features": [
+            "Self-contained setup (PA system included)",
+            "Battery-powered mobility for outdoor events",
+            "Curated acoustic/jazz playlist",
+            "Optional hand percussion add-on"
+        ],
+        "image_url": "https://placehold.co/480x320/EFE6D6/6B3E2E?text=Daytime+Sax+Performance",
+        "from_price": 390,
+        "locations_served": [
+            "North West",
+            "Liverpool",
+            "Yorkshire",
+            "London"
+        ]
+    },
+    {
+        "id": "sax-spin-duo",
+        "name": "Sax & Spin Duo",
+        "description": "High-energy evening entertainment pairing live sax with professional DJ, ideal for dancefloor-focused events.",
+        "standout_features": [
+            "2-hour minimum performance",
+            "Club-grade sound system",
+            "Dynamic lighting package",
+            "Seamless sax/DJ collaboration",
+            "Post-event breakdown included"
+        ],
+        "image_url": "https://placehold.co/480x320/2E1A47/FFFFFF?text=Sax+%26+DJ+Duo",
+        "from_price": 1250,
+        "locations_served": [
+            "London",
+            "Manchester",
+            "Leeds",
+            "Birmingham"
+        ]
+    },
+    {
+        "id": "golden-hour-special",
+        "name": "Golden Hour Special",
+        "description": "Compact 90-minute sax performance designed for sunset receptions or shorter events.",
+        "standout_features": [
+            "Perfect for ceremony transitions",
+            "Ultra-portable silent system option",
+            "LED stage flooring",
+            "Quick setup/breakdown (<20 mins)"
+        ],
+        "image_url": "https://placehold.co/480x320/F4D06F/6B3E2E?text=Golden+Hour+Set",
+        "from_price": 550,
+        "locations_served": [
+            "Yorkshire",
+            "North West",
+            "Midlands"
+        ]
+    },
+    {
+        "id": "platinum-celebration-package",
+        "name": "Platinum Celebration Package",
+        "description": "Premium full-service production for large events, featuring multiple performers and production elements.",
+        "standout_features": [
+            "Sax + DJ + percussion trio",
+            "4K laser lighting system",
+            "3-hour performance window",
+            "Dedicated sound engineer",
+            "Custom song learning service",
+            "Red carpet entrance performance"
+        ],
+        "image_url": "https://placehold.co/480x320/000000/FFD700?text=Platinum+Package",
+        "from_price": 2895,
+        "locations_served": [
+            "London",
+            "Manchester",
+            "Destination Events"
+        ]
+    }
+]
