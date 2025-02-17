@@ -1,40 +1,51 @@
-import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import Link from 'next/link';
-import { PerformancePackage } from '../types/Package';
+import { type SanityDocument } from 'next-sanity';
+import { client } from '@/sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
 
-async function fetchData<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Failed to fetch data');
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
-  return response.json();
-}
+const PACKAGES_QUERY = `*[
+    _type == 'package'
+]|order(from_price asc){_id, slug, title, description, image, from_price, features}`;
+
+// configure the image
+const { projectId, dataset } = client.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+
+const options = { next: { revalidate: 30 } };
 
 export default async function Packages() {
-  const performancePackages = await fetchData<PerformancePackage[]>(
-    'http://localhost:3000/api/packages'
+  const packages = await client.fetch<SanityDocument[]>(
+    PACKAGES_QUERY,
+    {},
+    options
   );
 
   return (
     <main className="container">
       <header className="text-center">
-        <h1>Performance Packages ({performancePackages.length})</h1>
+        <h1>Performance Packages ({packages.length})</h1>
         <p className="secondary">
           Saxophone entertainment for unforgettable events
         </p>
       </header>
 
       <div>
-        {performancePackages.map((pkg) => (
-          <article key={pkg.id}>
+        {packages.map((pkg) => (
+          <article key={pkg._id}>
             <div className="grid">
               <img
-                src={pkg.image_url}
+                src={urlFor(pkg.image)?.width(550).height(310).url()}
                 alt={pkg.name}
                 className=""
                 style={{ height: '240px', objectFit: 'cover' }}
               />
               <div>
-                <h2>{pkg.name}</h2>
+                <h2>{pkg.title}</h2>
                 <p className="lead">{pkg.description}</p>
                 <div>
                   <h3>
@@ -47,7 +58,7 @@ export default async function Packages() {
                   <small>Including VAT & travel*</small>
                   <br />
                   <Link
-                    href={`/quote/${pkg.id}`}
+                    href={`/quote/${pkg.slug.current}`}
                     className="button primary"
                     role="button"
                   >
@@ -56,28 +67,12 @@ export default async function Packages() {
                 </div>
                 <h4>Features</h4>
                 <ul>
-                  {pkg.standout_features.map((feature) => (
-                    <li key={feature}>{feature}</li>
+                  {pkg.features.map((feature: string, id: string) => (
+                    <li key={id}>{feature}</li>
                   ))}
                 </ul>
-                <p>
-                  Have a question?{' '}
-                  <Link href={'mailto:contact@titoentertainment.co.uk'}>
-                    Drop us a message!
-                  </Link>
-                </p>
               </div>
             </div>
-            {/* <div> */}
-            {/* <h4>Locations</h4>
-              <div>
-                {pkg.locations_served.map((location) => (
-                  <span key={location} className="chip">
-                    {location + ' '}
-                  </span>
-                ))}
-              </div> */}
-            {/* </div> */}
           </article>
         ))}
       </div>

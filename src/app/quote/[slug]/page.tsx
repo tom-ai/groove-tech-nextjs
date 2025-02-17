@@ -1,26 +1,28 @@
 import { PerformancePackage } from '@/app/types/Package';
+import { client } from '@/sanity/client';
+import { SanityDocument } from 'next-sanity';
 
-async function fetchData<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Failed to fetch data');
+const PACKAGE_QUERY = `*[_type == 'package' && slug.current == $slug][0]`;
 
-  return response.json();
-}
+const options = { next: { revalidate: 30 } };
 
 export default async function Quote({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-
-  const performanceData = await fetchData<PerformancePackage>(
-    `http://localhost:3000/api/packages/${slug}`
+  const pkg = await client.fetch<SanityDocument>(
+    PACKAGE_QUERY,
+    await params,
+    options
   );
+
+  console.log(pkg);
 
   return (
     <>
-      <h1>Package: {performanceData.name}</h1>
+      <h1>{pkg.title}</h1>
+      <p>{pkg.description}</p>
     </>
   );
 }
