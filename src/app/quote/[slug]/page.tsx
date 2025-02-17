@@ -1,4 +1,3 @@
-import { PerformancePackage } from '@/app/types/Package';
 import { client } from '@/sanity/client';
 import { SanityDocument } from 'next-sanity';
 
